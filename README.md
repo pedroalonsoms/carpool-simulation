@@ -15,4 +15,4 @@ Frontend - Unity
 - Daniel Arguedas Alvarado @TODO
 
 ## Credits
-TODO: add references for assets
+TODO: add references for assets & stuff
