@@ -4,15 +4,15 @@ A 3D simulation of a Carpool which aims to improve movility
 
 TODO: add image here
 
-# Tech
+## Tech
 Backend - Python (mesa framework)
 Frontend - Unity
 
 ## Team
-- Pedro Alosno Moreno Salcedo @pedroalonsoms
-- Felipe de Jesus González Acosta @felipegonac0
+- Pedro Alosno Moreno Salcedo [@pedroalonsoms](https://github.com/pedroalonsoms)
+- Felipe de Jesus González Acosta [@felipegonac0](https://github.com/felipegonac0)
 - Angela Sofía Pontón Ochoa @TODO
 - Daniel Arguedas Alvarado @TODO
 
 ## Credits
-TODO: add references for assets & stuff
+TODO: add references for assets
