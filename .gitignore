@@ -1,3 +1,6 @@
+# Python virtual environment
+backend/env/
+
 # Trash files
 .DS_Store
 
