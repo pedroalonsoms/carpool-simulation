@@ -9,7 +9,7 @@ def get_grid(model):
     grid = np.zeros((model.grid.width, model.grid.height))
 
     for agents, (x, y) in model.grid.coord_iter():
-        for agent in agents:
+            for agent in agents:
             if isinstance(agent, CarAgent):
                 grid[x][y] = 1
             if isinstance(agent, PersonAgent):
