@@ -18,7 +18,13 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Deactivate
+Run the project
+
+```console
+python main.py
+```
+
+You can deactivate it when you finish
 
 ```console
 deactivate
