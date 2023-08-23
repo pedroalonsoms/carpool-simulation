@@ -6,8 +6,8 @@ A 3D simulation of a Carpool which aims to improve movility
 
 ## Tech
 
-Backend - Python (mesa framework)
-Frontend - Unity
+- Backend - Python (mesa framework)
+- Frontend - Unity
 
 ## Team
 
