@@ -11,6 +11,7 @@ class CarAgent(mesa.Agent):
         self.current_index = 0
 
     def step(self):
+        # Avanzar el índice del arreglo de la ruta
         self.current_index += 1
         if self.current_index < len(self.route):
             next_pos = self.route[self.current_index]

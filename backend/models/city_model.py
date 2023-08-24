@@ -1,5 +1,6 @@
 import mesa
 import numpy as np
+import random
 from agents.car_agent import CarAgent
 from agents.person_agent import PersonAgent
 
@@ -23,8 +24,8 @@ class CityModel(mesa.Model):
 
     def __init__(self):
         # El tamaño del tablero es fijo
-        self.width = 10
-        self.height = 10
+        self.width = 42
+        self.height = 36
 
         # Scheduler & recolector de datos
         self.schedule = mesa.time.SimultaneousActivation(self)
@@ -32,10 +33,19 @@ class CityModel(mesa.Model):
         self.datacollector = mesa.DataCollector(model_reporters={"Grid": get_grid})
 
         # Creando personas
-        for i in range(7):
+        people_spawn_points = [
+            (5, 5),
+            (6, 19),
+            (8, 20),
+            (27, 21),
+            (22, 29),
+            (31, 34),
+            (8, 34),
+        ]
+        for i in range(20):
             person = PersonAgent("Person" + str(i), self)
-            self.grid.place_agent(person, (0, 0))
-            self.grid.move_to_empty(person)
+            person_spawn_point = random.choice(people_spawn_points)
+            self.grid.place_agent(person, person_spawn_point)
 
         # Creando coches
         car1 = CarAgent(
