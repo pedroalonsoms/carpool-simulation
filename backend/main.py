@@ -23,7 +23,7 @@ def main():
     model = CityModel()
 
     # Mientras no hayamos excedido el número máximo de datos, correr la simulación
-    max_steps = 10
+    max_steps = 100
     i = 0
     while i < max_steps:
         model.step()

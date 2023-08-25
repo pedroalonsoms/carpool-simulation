@@ -1,6 +1,7 @@
 import mesa
 import numpy as np
 import random
+import constants
 from agents.car_agent import CarAgent
 from agents.person_agent import PersonAgent
 
@@ -12,9 +13,9 @@ def get_grid(model):
     for agents, (x, y) in model.grid.coord_iter():
         for agent in agents:
             if isinstance(agent, CarAgent):
-                grid[x][y] = 1
-            if isinstance(agent, PersonAgent):
                 grid[x][y] = 2
+            if isinstance(agent, PersonAgent):
+                grid[x][y] = 1
 
     return grid
 
@@ -24,103 +25,34 @@ class CityModel(mesa.Model):
 
     def __init__(self):
         # El tamaño del tablero es fijo
-        self.width = 42
-        self.height = 36
+        self.width = 51
+        self.height = 43
 
         # Scheduler & recolector de datos
         self.schedule = mesa.time.SimultaneousActivation(self)
-        self.grid = mesa.space.MultiGrid(self.width, self.height, False)
+        self.grid = mesa.space.MultiGrid(self.height, self.width, False)
         self.datacollector = mesa.DataCollector(model_reporters={"Grid": get_grid})
 
         # Creando personas
-        people_spawn_points = [
-            (5, 5),
-            (6, 19),
-            (8, 20),
-            (27, 21),
-            (22, 29),
-            (31, 34),
-            (8, 34),
-        ]
-        for i in range(20):
+        for i in range(20000):
             person = PersonAgent("Person" + str(i), self)
-            person_spawn_point = random.choice(people_spawn_points)
+            person_spawn_point = random.choice(constants.people_spawn_points)
             self.grid.place_agent(person, person_spawn_point)
 
         # Creando coches
-        car1 = CarAgent(
-            "Car 1",
-            self,
-            [
-                (9, 1),
-                (8, 1),
-                (7, 1),
-                (6, 1),
-                (5, 1),
-                (4, 1),
-                (3, 1),
-                (2, 1),
-                (1, 1),
-                (0, 1),
-            ],
-        )
+        car1 = CarAgent("Car 1", self, constants.car1_road)
         self.schedule.add(car1)
         self.grid.place_agent(car1, (9, 1))
 
-        car2 = CarAgent(
-            "Car 2",
-            self,
-            [
-                (9, 3),
-                (8, 3),
-                (7, 3),
-                (6, 3),
-                (5, 3),
-                (4, 3),
-                (3, 3),
-                (2, 3),
-                (1, 3),
-                (0, 3),
-            ],
-        )
+        car2 = CarAgent("Car 2", self, constants.car2_road)
         self.schedule.add(car2)
         self.grid.place_agent(car2, (9, 3))
 
-        car3 = CarAgent(
-            "Car 3",
-            self,
-            [
-                (9, 5),
-                (8, 5),
-                (7, 5),
-                (6, 5),
-                (5, 5),
-                (4, 5),
-                (3, 5),
-                (2, 5),
-                (1, 5),
-                (0, 5),
-            ],
-        )
+        car3 = CarAgent("Car 3", self, constants.car3_road)
         self.schedule.add(car3)
         self.grid.place_agent(car3, (9, 5))
 
-        car4 = CarAgent(
-            "Car 4",
-            self,
-            [
-                (9, 7),
-                (8, 7),
-                (7, 7),
-                (6, 7),
-                (5, 7),
-                (4, 7),
-                (3, 7),
-                (2, 7),
-                (1, 7),
-                (0, 7),
-            ],
-        )
+        car4 = CarAgent("Car 4", self, constants.car4_road)
         self.schedule.add(car4)
         self.grid.place_agent(car4, (9, 7))
 
