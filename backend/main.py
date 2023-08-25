@@ -11,6 +11,7 @@ Daniel Arguedas Alvarado A00829735
 """
 
 # Gráficas
+import json
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -20,7 +21,9 @@ from models.city_model import CityModel
 
 def main():
     # Creamos una instancia del modelo de apocalipsis
-    model = CityModel()
+    car_spawn_rate = 1
+    person_spawn_rate = 1
+    model = CityModel(car_spawn_rate, person_spawn_rate)
 
     # Mientras no hayamos excedido el número máximo de datos, correr la simulación
     max_steps = 100

@@ -14,6 +14,7 @@ def get_grid(model):
         for agent in agents:
             if isinstance(agent, CarAgent):
                 grid[x][y] = 2
+        for agent in agents:
             if isinstance(agent, PersonAgent):
                 grid[x][y] = 1
 
@@ -23,44 +24,38 @@ def get_grid(model):
 class CityModel(mesa.Model):
     """Tablero de N x M para la ciudad"""
 
-    def __init__(self):
+    def __init__(self, car_spawn_rate, person_spawn_rate):
         # El tamaño del tablero es fijo
         self.width = 51
         self.height = 43
+        self.car_spawn_rate = car_spawn_rate
+        self.person_spawn_rate = person_spawn_rate
+        self.car_count = 0
+        self.person_count = 0
 
         # Scheduler & recolector de datos
         self.schedule = mesa.time.SimultaneousActivation(self)
         self.grid = mesa.space.MultiGrid(self.height, self.width, False)
         self.datacollector = mesa.DataCollector(model_reporters={"Grid": get_grid})
 
-        # Creando personas
-        for i in range(20000):
-            person = PersonAgent("Person" + str(i), self)
-            person_spawn_point = random.choice(constants.people_spawn_points)
-            self.grid.place_agent(person, person_spawn_point)
-
-        # Creando coches
-        car1 = CarAgent("Car 1", self, constants.car1_road)
-        self.schedule.add(car1)
-        self.grid.place_agent(car1, (9, 1))
-
-        car2 = CarAgent("Car 2", self, constants.car2_road)
-        self.schedule.add(car2)
-        self.grid.place_agent(car2, (9, 3))
-
-        car3 = CarAgent("Car 3", self, constants.car3_road)
-        self.schedule.add(car3)
-        self.grid.place_agent(car3, (9, 5))
-
-        car4 = CarAgent("Car 4", self, constants.car4_road)
-        self.schedule.add(car4)
-        self.grid.place_agent(car4, (9, 7))
-
-        # Siempre recolectamos una primera 'foto' para saber el estado inicial
-        self.datacollector.collect(self)
-
     def step(self):
         "Avanzar el modelo por un step"
+
+        # Creando coches
+        for car_road in constants.car_roads:
+            if random.random() < self.car_spawn_rate:
+                car = CarAgent(f"Car {self.car_count}", self, car_road)
+                self.grid.place_agent(car, car_road[0])
+                self.schedule.add(car)
+                self.car_count += 1
+
+        # Creando personas
+        for spawn_point in constants.people_spawn_points:
+            if random.random() < self.person_spawn_rate:
+                person = PersonAgent(f"Person {self.person_count}", self)
+                self.grid.place_agent(person, spawn_point)
+                self.schedule.add(person)
+                self.person_count += 1
 
         # Primero corremos la simulación y luego le tomamos 'foto'
         self.schedule.step()
