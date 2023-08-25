@@ -3,6 +3,7 @@ backend/env/
 
 # Trash files
 .DS_Store
+__pycache__/
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
