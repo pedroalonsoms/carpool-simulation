@@ -62,13 +62,13 @@ class CityModel(mesa.Model):
         # Creando coches
         for car_route in constants.car_routes:
             if random.random() < self.car_spawn_rate:
-                car = CarAgent(f"Car {self.car_count}", self, car_route)
+                car = CarAgent(f"CAR_{self.car_count}", self, car_route)
                 self.car_count += 1
 
         # Creando personas
         for people_station in constants.people_stations.values():
             if random.random() < self.person_spawn_rate:
-                person = PersonAgent(f"Person {self.person_count}", self)
+                person = PersonAgent(f"PERSON_{self.person_count}", self)
                 self.grid.place_agent(person, people_station)
                 self.schedule.add(person)
                 self.person_count += 1
