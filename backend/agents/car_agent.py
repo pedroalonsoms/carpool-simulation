@@ -36,13 +36,27 @@ class CarAgent(mesa.Agent):
         neighbors = self.model.grid.get_neighbors(
             self.pos, include_center=False, moore=False
         )
+        # Si alguno de los vecinos estaba planeado a ser recogido, se recoge
         for neighbor in neighbors:
             if isinstance(neighbor, PersonAgent) and neighbor.car_id == self.unique_id:
                 # Lo sacamos del grid cuando lo encontramos
                 self.model.grid.remove_agent(neighbor)
+
+        # Verificamos si está en la última posición de la ruta, si es así, lo eliminamos del tablero
+        if self.current_index == len(self.car_route["points"]) - 1:
+            self.model.schedule.remove(self)
+            self.model.grid.remove_agent(self)
 
         # Avanzar el índice del arreglo de la ruta
         self.current_index += 1
         if self.current_index < len(self.car_route["points"]):
             next_pos = self.car_route["points"][self.current_index]
             self.model.grid.move_agent(self, next_pos)
+
+    def toJSON(self):
+        return f"""
+{{
+    \"type\": \"PERSON_AGENT\", 
+    \"x\": {self.pos[0]},
+    \"y\": {self.pos[1]}
+}}"""

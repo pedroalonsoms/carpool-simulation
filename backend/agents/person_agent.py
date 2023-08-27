@@ -11,3 +11,11 @@ class PersonAgent(mesa.Agent):
 
     def step(self):
         pass
+
+    def toJSON(self):
+        return f"""
+{{
+    \"type\": \"PERSON_AGENT\", 
+    \"x\": {self.pos[0]},
+    \"y\": {self.pos[1]}
+}}"""

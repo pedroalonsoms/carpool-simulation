@@ -1,3 +1,6 @@
+# Python JSON output folder
+backend/jsons
+
 # Python virtual environment
 backend/env/
 
