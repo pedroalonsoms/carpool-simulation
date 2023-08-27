@@ -23,8 +23,8 @@ A 3D simulation of a Carpool which aims to improve movility
 - [ ] Implementar en Unity una Scene para el investigador que ponga el número de presonas y carpools totales, y se lo mande en un JSON que lo lea el Python
 - [ ] Aparecen todas las personas durante la simulación distribuidas aleatoriamente en las paradas al igual que los coches
 - [ ] Personas y coches aparecen aleatoriamente durante la simulación
-- [ ] Los coches tienen un delay. El delay es medido en steps. Durante el delay, a cada coche se le asignan personas a recoger.
-- [ ] Las personas son unicamente reactivas
+- [ ] A los coches se les asignan sus personas a recoger al momento que estos salen, no tienen tiempo de espera.
+- [ ] Las personas son unicamente reactivas.
 - [ ] Los coches checan si hay una persona en los 8 vecinos (sin diagonales) y las recogen cuando les pasan a un lado.
 - [ ] Cada persona tiene un id del coche que le asignarion, el cual puede ser nulo si no hay coche que se le asignó.
 - [ ] Llevar un contador de cuántas persoans personas fueron recogidas y no recogidas.
