@@ -31,6 +31,9 @@ def main():
         model.step()
         i += 1
 
+    # Guardar lo que sucedió en la simulación como JSON
+    model.save_steps_data_as_json()
+
     # Recolectamos todas las 'fotos'
     all_grid = model.datacollector.get_model_vars_dataframe()
 

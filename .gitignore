@@ -1,5 +1,5 @@
-# Python JSON output folder
-backend/jsons
+# Python JSON output
+backend/steps_data.json
 
 # Python virtual environment
 backend/env/

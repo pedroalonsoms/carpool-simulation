@@ -1,3 +1,4 @@
+import json
 import mesa
 from agents.person_agent import PersonAgent
 
@@ -54,10 +55,11 @@ class CarAgent(mesa.Agent):
             self.model.grid.move_agent(self, next_pos)
 
     def toJSON(self):
-        return f"""
+        json_string = f"""
 {{
     \"id\": \"{self.unique_id}\", 
     \"type\": \"CAR_AGENT\", 
     \"x\": {self.pos[0]},
     \"y\": {self.pos[1]}
 }}"""
+        return json.loads(json_string)

@@ -1,3 +1,4 @@
+import json
 import mesa
 
 
@@ -10,13 +11,15 @@ class PersonAgent(mesa.Agent):
         self.car_id = None
 
     def step(self):
+        "Agente pasivo"
         pass
 
     def toJSON(self):
-        return f"""
+        json_string = f"""
 {{
     \"id\": \"{self.unique_id}\",
     \"type\": \"PERSON_AGENT\", 
     \"x\": {self.pos[0]},
     \"y\": {self.pos[1]}
 }}"""
+        return json.loads(json_string)

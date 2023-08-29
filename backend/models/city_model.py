@@ -1,5 +1,4 @@
 import json
-import os
 import mesa
 import numpy as np
 import random
@@ -12,8 +11,8 @@ def get_grid(model):
     """Transformar el grid en una representación para que sea leída por matplotlib"""
     grid = np.zeros((model.grid.width, model.grid.height))
 
-    # Creamos arreglo que va a contener los JSON's individuales
-    agentJSONs = []
+    # Creamos arreglo que va a contener los JSON's individuales de cada step
+    single_step_data = []
     for agents, (x, y) in model.grid.coord_iter():
         for agent in agents:
             if isinstance(agent, CarAgent):
@@ -21,20 +20,10 @@ def get_grid(model):
             if isinstance(agent, PersonAgent):
                 grid[x][y] = 1
             # Los vamos agregando a un arreglo
-            agentJSONs.append(agent.toJSON())
+            single_step_data.append(agent.toJSON())
 
-    # Formateamos los agentes en formato JSON
-    stepRawJSON = f"{{ \"data\": [{','.join(agentJSONs)}] }}"
-    stepPrettyJSON = json.dumps(json.loads(stepRawJSON), indent=4)
-
-    # Creamos el directorio del output en caso de que no exista
-    if not os.path.exists("jsons"):
-        os.makedirs("jsons")
-
-    # Escribimos un archivo JSON por cada step que hemos procesado
-    with open(f"jsons/{model.step_count}.json", "w") as outfile:
-        outfile.write(stepPrettyJSON)
-
+    # Guardamos una lista con todos los datos de cada step
+    model.steps_data.append(single_step_data)
     return grid
 
 
@@ -50,6 +39,7 @@ class CityModel(mesa.Model):
         self.car_count = 0
         self.person_count = 0
         self.step_count = 0
+        self.steps_data = []
 
         # Scheduler & recolector de datos
         self.schedule = mesa.time.SimultaneousActivation(self)
@@ -77,3 +67,8 @@ class CityModel(mesa.Model):
         self.datacollector.collect(self)
         self.schedule.step()
         self.step_count += 1
+
+    def save_steps_data_as_json(self):
+        # Escribimos un archivo JSON por cada step que hemos procesado
+        with open(f"steps_data.json", "w") as outfile:
+            outfile.write(json.dumps(self.steps_data, indent=2))
