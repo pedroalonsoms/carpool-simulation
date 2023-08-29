@@ -57,7 +57,7 @@ class CarAgent(mesa.Agent):
         return f"""
 {{
     \"id\": \"{self.unique_id}\", 
-    \"type\": \"PERSON_AGENT\", 
+    \"type\": \"CAR_AGENT\", 
     \"x\": {self.pos[0]},
     \"y\": {self.pos[1]}
 }}"""
