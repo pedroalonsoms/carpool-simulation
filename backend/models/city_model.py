@@ -40,6 +40,7 @@ class CityModel(mesa.Model):
         self.person_count = 0
         self.step_count = 0
         self.steps_data = []
+        self.route_count = [0, 0, 0, 0]
 
         # Scheduler & recolector de datos
         self.schedule = mesa.time.SimultaneousActivation(self)
@@ -50,10 +51,13 @@ class CityModel(mesa.Model):
         "Avanzar el modelo por un step"
 
         # Creando coches
-        for car_route in constants.car_routes:
+        for i in range(len(constants.car_routes)):
+            car_route = constants.car_routes[i]
+
             if random.random() < self.car_spawn_rate:
-                car = CarAgent(f"CAR_{self.car_count}", self, car_route)
+                car = CarAgent(f"R{i}_CAR_{self.route_count[i]}", self, car_route)
                 self.car_count += 1
+                self.route_count[i] += 1
 
         # Creando personas
         for people_station in constants.people_stations.values():
