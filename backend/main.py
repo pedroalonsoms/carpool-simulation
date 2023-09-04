@@ -14,14 +14,15 @@ Daniel Arguedas Alvarado A00829735
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+import sys
 
 from models.city_model import CityModel
 
 
 def main():
     # Creamos una instancia del modelo
-    car_spawn_rate = 0.7
-    person_spawn_rate = 0.2
+    car_spawn_rate = float(sys.argv[1])
+    person_spawn_rate = float(sys.argv[2])
     model = CityModel(car_spawn_rate, person_spawn_rate)
 
     # Mientras no hayamos excedido el número máximo de datos, correr la simulación
