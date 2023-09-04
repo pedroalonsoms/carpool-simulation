@@ -30,7 +30,7 @@ class CarAgent(mesa.Agent):
                 ):
                     # Se lo asignamos
                     person.car_id = self.unique_id
-                self.planned_passengers += 1
+                    self.planned_passengers += 1
 
     def step(self):
         # Verificar si alguno de nuestros vecinos es una estación de personas
