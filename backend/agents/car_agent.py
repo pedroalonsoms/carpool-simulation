@@ -57,8 +57,7 @@ class CarAgent(mesa.Agent):
     def toJSON(self):
         json_string = f"""
 {{
-    \"id\": \"{self.unique_id}\", 
-    \"type\": \"CAR_AGENT\", 
+    \"id\": \"{self.unique_id}\",
     \"x\": {self.pos[0]},
     \"y\": {self.pos[1]}
 }}"""

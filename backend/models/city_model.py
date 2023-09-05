@@ -12,18 +12,21 @@ def get_grid(model):
     grid = np.zeros((model.grid.width, model.grid.height))
 
     # Creamos arreglo que va a contener los JSON's individuales de cada step
-    single_step_data = []
+    step_data = {"cars": [], "people": []}
     for agents, (x, y) in model.grid.coord_iter():
         for agent in agents:
             if isinstance(agent, CarAgent):
+                # Los vamos agregando a un arreglo
+                step_data["cars"].append(agent.toJSON())
                 grid[x][y] = 2
+
             if isinstance(agent, PersonAgent):
+                # Los vamos agregando a un arreglo
+                step_data["people"].append(agent.toJSON())
                 grid[x][y] = 1
-            # Los vamos agregando a un arreglo
-            single_step_data.append(agent.toJSON())
 
     # Guardamos una lista con todos los datos de cada step
-    model.steps_data.append(single_step_data)
+    model.simulation_data.append(step_data)
     return grid
 
 
@@ -39,7 +42,7 @@ class CityModel(mesa.Model):
         self.car_count = 0
         self.person_count = 0
         self.step_count = 0
-        self.steps_data = []
+        self.simulation_data = []
         self.route_count = [0, 0, 0, 0]
 
         # Scheduler & recolector de datos
@@ -51,13 +54,10 @@ class CityModel(mesa.Model):
         "Avanzar el modelo por un step"
 
         # Creando coches
-        for i in range(len(constants.car_routes)):
-            car_route = constants.car_routes[i]
-
+        for car_route in constants.car_routes:
             if random.random() < self.car_spawn_rate:
-                car = CarAgent(f"R{i}_CAR_{self.route_count[i]}", self, car_route)
+                car = CarAgent(f"CAR_{self.car_count}", self, car_route)
                 self.car_count += 1
-                self.route_count[i] += 1
 
         # Creando personas
         for people_station in constants.people_stations.values():
@@ -72,7 +72,6 @@ class CityModel(mesa.Model):
         self.schedule.step()
         self.step_count += 1
 
-    def save_steps_data_as_json(self):
+    def get_simulation_data_as_json(self):
         # Escribimos un archivo JSON por cada step que hemos procesado
-        with open(f"steps_data.json", "w") as outfile:
-            outfile.write(json.dumps(self.steps_data, indent=2))
+        return {"simulationData": self.simulation_data}
