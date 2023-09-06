@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
+def index():
     # Creamos una instancia del modelo
     car_spawn_rate = float(request.args.get("car_spawn_rate"))
     person_spawn_rate = float(request.args.get("person_spawn_rate"))
