@@ -41,4 +41,4 @@ A 3D simulation of a Carpool which aims to improve movility
 
 ## Credits
 
-TODO: add references for assets
+- Splash Screen Photo: https://unsplash.com/photos/pN-Prl1jMVM
