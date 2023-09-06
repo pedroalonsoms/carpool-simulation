@@ -42,6 +42,8 @@ class CarAgent(mesa.Agent):
             if isinstance(neighbor, PersonAgent) and neighbor.car_id == self.unique_id:
                 # Lo sacamos del grid cuando lo encontramos
                 self.model.grid.remove_agent(neighbor)
+                # Aumentamos estadísticas
+                self.model.collected_people_count += 1
 
         # Verificamos si está en la última posición de la ruta, si es así, lo eliminamos del tablero
         if self.current_index == len(self.car_route["points"]) - 1:

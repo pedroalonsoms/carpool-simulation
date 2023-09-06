@@ -32,8 +32,13 @@ def index():
         i += 1
 
     # Imprimimos la cantidad de coches y personas finales
-    print("Final person_count", model.person_count)
+    print("====")
+    print("Final people_count", model.people_count)
+    print("Final collected_people_count", model.collected_people_count)
+    print("Ratio", round(model.collected_people_count * 100 / model.people_count), "%")
+    print("====")
     print("Final car_count", model.car_count)
+    print("====")
 
     # Guardar lo que sucedió en la simulación como JSON
     return jsonify(model.get_simulation_data_as_json())

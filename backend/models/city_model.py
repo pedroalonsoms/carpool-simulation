@@ -40,7 +40,8 @@ class CityModel(mesa.Model):
         self.car_spawn_rate = car_spawn_rate
         self.person_spawn_rate = person_spawn_rate
         self.car_count = 0
-        self.person_count = 0
+        self.people_count = 0
+        self.collected_people_count = 0
         self.step_count = 0
         self.simulation_data = []
         self.route_count = [0, 0, 0, 0]
@@ -62,10 +63,10 @@ class CityModel(mesa.Model):
         # Creando personas
         for people_station in constants.people_stations.values():
             if random.random() < self.person_spawn_rate:
-                person = PersonAgent(f"PERSON_{self.person_count}", self)
+                person = PersonAgent(f"PERSON_{self.people_count}", self)
                 self.grid.place_agent(person, people_station)
                 self.schedule.add(person)
-                self.person_count += 1
+                self.people_count += 1
 
         # Primero le tomamos 'foto' y luego corremos la simulación
         self.datacollector.collect(self)
