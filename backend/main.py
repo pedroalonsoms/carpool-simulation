@@ -31,6 +31,10 @@ def index():
         model.step()
         i += 1
 
+    # Imprimimos la cantidad de coches y personas finales
+    print("Final person_count", model.person_count)
+    print("Final car_count", model.car_count)
+
     # Guardar lo que sucedió en la simulación como JSON
     return jsonify(model.get_simulation_data_as_json())
 
