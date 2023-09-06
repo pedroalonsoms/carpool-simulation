@@ -111,6 +111,7 @@ public class UpdateAgents : MonoBehaviour
                 // And move it to its new position
                 Vector3 targetPosition = new Vector3(car.x, 0, car.y);
                 float step = 10 * Time.deltaTime;
+                carGameObject.transform.LookAt(targetPosition);
                 carGameObject.transform.position = Vector3.MoveTowards(carGameObject.transform.position, targetPosition, step);
             } else {
                 // If it doesn't exist, then we need to instantiate it
